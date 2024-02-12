@@ -30,8 +30,6 @@ start.addEventListener("click", () => {
   setInterval(() => {
     startTime = inputDate - new Date().getTime();
     convertMs(startTime);
-    start.disabled = true;
-    document.querySelector("#datetime-picker").disabled = true;
   }, 1000);
  });
 
