@@ -6,7 +6,7 @@ const daysOutput = document.querySelector('[data-days]');
 const hoursOutput = document.querySelector('[data-hours]');
 const minutesOutput = document.querySelector('[data-minutes]');
 const secondsOutput = document.querySelector('[data-seconds]');
-var inputDate, startTime, timeUpdate;
+var inputDate, startTime;
 
 const options = {
   enableTime: true,
@@ -27,9 +27,12 @@ const options = {
 flatpickr("#datetime-picker", options);
 
 start.addEventListener("click", () => {
-  timeUpdate = new Date().getTime();
-  startTime = inputDate - timeUpdate;
-    setInterval(convertMs, 1000, startTime);
+  setInterval(() => {
+    startTime = inputDate - new Date().getTime();
+    convertMs(startTime);
+    start.disabled = true;
+    document.querySelector("#datetime-picker").disabled = true;
+  }, 1000);
  });
 
 function addLeadingZero(value) {
@@ -56,6 +59,4 @@ function convertMs(ms) {
   hoursOutput.innerHTML = addLeadingZero(hours);
   minutesOutput.innerHTML = addLeadingZero(minutes);
   secondsOutput.innerHTML = addLeadingZero(seconds);
-
-  return { days, hours, minutes, seconds };
 }
